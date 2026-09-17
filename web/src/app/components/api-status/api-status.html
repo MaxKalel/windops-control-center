@@ -1,0 +1,19 @@
+<span class="api-status" [attr.aria-live]="'polite'">
+  @switch (state()) {
+    @case ('loading') {
+      <span class="dot dot--loading"></span>
+      <span>API ● Verificando...</span>
+    }
+    @case ('online') {
+      <span class="dot dot--online"></span>
+      <span>API</span>
+    }
+    @case ('offline') {
+      <span class="dot dot--offline"></span>
+      <span>API</span>
+    }
+    @default {
+      <span>API</span>
+    }
+  }
+</span>

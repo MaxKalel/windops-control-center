@@ -1,0 +1,41 @@
+<section class="asset-list" aria-label="Ativos">
+  <a routerLink="/" class="assets__back">
+  ← Voltar para visão geral
+</a>
+  <h2>Ativos</h2>
+
+  @switch (status()) {
+    @case ('loading') {
+      <p>Carregando ativos...</p>
+    }
+    @case ('error') {
+      <p role="alert" class="asset-list__error">{{ errorMessage() }}</p>
+    }
+    @case ('success') {
+      @if (assets().length === 0) {
+        <p>Nenhum ativo cadastrado.</p>
+      } @else {
+        <ul class="asset-list__grid">
+          @for (asset of assets(); track asset.id) {
+            <li class="asset-list__item">
+              <a class="asset-card" [routerLink]="['/assets', asset.id]">
+                <h3 class="asset-card__id">{{ asset.id }}</h3>
+                <p class="asset-card__name">{{ asset.name }}</p>
+                <p class="asset-card__type">{{ asset.type }}</p>
+                <span class="asset-card__status asset-card__status--{{ asset.status.toLowerCase() }}">
+                  {{ asset.status }}
+                </span>
+                <p class="asset-card__meta">
+                  {{ asset.ratedPowerMw }} MW · {{ asset.location }}
+                </p>
+              </a>
+            </li>
+          }
+        </ul>
+      }
+    }
+    @default {
+      <p>Aguardando...</p>
+    }
+  }
+</section>

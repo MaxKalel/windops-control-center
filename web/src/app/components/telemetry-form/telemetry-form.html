@@ -1,0 +1,70 @@
+<form
+  class="telemetry-form"
+  [formGroup]="form"
+  (ngSubmit)="onSubmit()"
+  novalidate
+>
+  @if (submitStatus() === 'success') {
+    <p class="telemetry-form__success" role="status">Leitura registrada!</p>
+  }
+  @if (submitStatus() === 'error') {
+    <p class="telemetry-form__error" role="alert">{{ errorMessage() }}</p>
+  }
+
+  <div class="telemetry-form__field">
+    <label for="powerMw">Potência (MW)</label>
+    <input
+      id="powerMw"
+      type="number"
+      min="0"
+      step="any"
+      formControlName="powerMw"
+      required
+      [attr.aria-invalid]="form.controls['powerMw'].invalid && form.controls['powerMw'].touched ? 'true' : null"
+      aria-describedby="powerMw-error"
+    />
+    @if (form.controls['powerMw'].invalid && form.controls['powerMw'].touched) {
+      <p id="powerMw-error" class="telemetry-form__field-error">Informe um valor válido (>= 0).</p>
+    }
+  </div>
+
+  <div class="telemetry-form__field">
+    <label for="windSpeedMs">Vento (m/s)</label>
+    <input
+      id="windSpeedMs"
+      type="number"
+      min="0"
+      step="any"
+      formControlName="windSpeedMs"
+      [attr.aria-invalid]="form.controls['windSpeedMs'].invalid && form.controls['windSpeedMs'].touched ? 'true' : null"
+      aria-describedby="windSpeedMs-error"
+    />
+    @if (form.controls['windSpeedMs'].invalid && form.controls['windSpeedMs'].touched) {
+      <p id="windSpeedMs-error" class="telemetry-form__field-error">Informe um valor válido (>= 0).</p>
+    }
+  </div>
+
+  <div class="telemetry-form__field">
+    <label for="temperatureC">Temperatura (°C)</label>
+    <input
+      id="temperatureC"
+      type="number"
+      step="any"
+      formControlName="temperatureC"
+      required
+      [attr.aria-invalid]="form.controls['temperatureC'].invalid && form.controls['temperatureC'].touched ? 'true' : null"
+      aria-describedby="temperatureC-error"
+    />
+    @if (form.controls['temperatureC'].invalid && form.controls['temperatureC'].touched) {
+      <p id="temperatureC-error" class="telemetry-form__field-error">Informe a temperatura.</p>
+    }
+  </div>
+
+  <button
+    type="submit"
+    class="telemetry-form__submit"
+    [disabled]="form.invalid || submitStatus() === 'submitting'"
+  >
+    {{ submitStatus() === 'submitting' ? 'Enviando...' : 'Registrar' }}
+  </button>
+</form>

@@ -1,0 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+* {
+  font-family: 'Inter', sans-serif;
+}
+
+.dashboard__button {
+  display: inline-block;
+  padding: 0.75rem 1.25rem;
+  background: #1565c0;
+  color: white !important;
+  text-decoration: none;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+
+  &:hover {
+    background: #0d47a1;
+  }
+}

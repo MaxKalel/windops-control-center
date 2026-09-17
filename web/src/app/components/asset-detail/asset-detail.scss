@@ -1,0 +1,168 @@
+.asset-detail {
+  &__sections {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 2rem;
+    align-items: start;
+    margin-bottom: 1rem;
+
+    @media (max-width: 760px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__alerts {
+    border-top: 1px solid #ececec;
+    padding-top: 0.1rem;
+  }
+
+  &__error {
+    color: #c62828;
+    background: #fdecea;
+    padding: 0.75rem 1rem;
+    border-radius: 0.375rem;
+  }
+
+  &__header {
+    margin-bottom: 2rem;
+  }
+
+  &__back {
+    display: inline-block;
+    margin-bottom: 0.5rem;
+    color: #1565c0;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  &__title {
+    margin: 0 0 0.25rem;
+  }
+
+  &__meta {
+    margin: 0.25rem 0 0;
+    color: #616161;
+  }
+
+  &__status {
+    display: inline-block;
+    padding: 0.25rem 0.625rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+
+    &--online {
+      background: #e8f5e9;
+      color: #2e7d32;
+    }
+
+    &--attention {
+      background: #fff8e1;
+      color: #f57f17;
+    }
+
+    &--maintenance {
+      background: #ede7f6;
+      color: #4527a0;
+    }
+
+    &--offline {
+      background: #eceff1;
+      color: #546e7a;
+    }
+  }
+}
+
+.summary-cards {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1rem;
+  margin: 0 0 1.5rem;
+}
+
+.summary-card {
+  border: 1px solid #e0e0e0;
+  border-radius: 0.5rem;
+  padding: 1rem;
+
+  dt {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #616161;
+  }
+
+  dd {
+    margin: 0.375rem 0 0;
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+
+  // 3º KPI
+  &:nth-child(3) {
+    border-color: #ff9100;
+
+    dd {
+      color: #ff9100;
+    }
+
+    dt {
+      color: #ff9100;
+    }
+  }
+
+  // 4º KPI
+  &:nth-child(4) {
+    border-color: #fb0000;
+
+    dd {
+      color: #fb0000;
+    }
+    
+    dt {
+      color: #fb0000;
+    }
+  }
+}
+
+
+// telemetria recente
+.telemetry {
+  &__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border: 1px solid #e0e0e0;
+    border-radius: 0.5rem;
+  }
+
+  &__item {
+    display: flex;
+    gap: 1rem;
+    padding: 0.625rem 1rem;
+    border-bottom: 1px solid #ececec;
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+
+  &__time {
+    color: #616161;
+    flex: 1;
+  }
+}
+
+.new-reading {
+  border: 1px solid #e0e0e0;
+  border-radius: 0.5rem;
+  padding: 1rem;
+
+  h3 {
+    margin: 0 0 1rem;
+  }
+}

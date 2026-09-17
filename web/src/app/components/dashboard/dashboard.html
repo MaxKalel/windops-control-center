@@ -1,0 +1,50 @@
+<section class="dashboard" aria-label="Dashboard">
+  <h2>Visão geral</h2>
+
+  @switch (status()) {
+    @case ('loading') {
+      <p>Carregando KPIs...</p>
+    }
+    @case ('error') {
+      <p role="alert" class="dashboard__error">{{ errorMessage() }}</p>
+    }
+    @case ('success') {
+      @if (overview(); as overview) {
+        <dl class="kpis">
+          <div class="kpi">
+            <dt>Total de ativos</dt>
+            <dd>{{ overview.totalAssets }}</dd>
+          </div>
+          <div class="kpi">
+            <dt>Online</dt>
+            <dd>{{ overview.onlineAssets }}</dd>
+          </div>
+          <div class="kpi">
+            <dt>Em atenção</dt>
+            <dd>{{ overview.attentionAssets }}</dd>
+          </div>
+          <div class="kpi">
+            <dt>Manutenção</dt>
+            <dd>{{ overview.maintenanceAssets }}</dd>
+          </div>
+          <div class="kpi">
+            <dt>Alertas críticos</dt>
+            <dd>{{ overview.criticalAlerts }}</dd>
+          </div>
+          <div class="kpi">
+            <dt>Total de alertas</dt>
+            <dd>{{ overview.totalAlerts }}</dd>
+          </div>
+        </dl>
+
+        <nav class="dashboard__nav" aria-label="Navegação">
+        <a routerLink="/assets" class="dashboard__button">
+    Ver ativos
+  </a>
+</nav>
+
+        <app-alert-list title="⚠ Alertas recentes" />
+      }
+    }
+  }
+</section>

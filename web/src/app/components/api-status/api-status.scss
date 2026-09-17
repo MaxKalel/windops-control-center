@@ -1,0 +1,36 @@
+.api-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.dot {
+  width: 0.625rem;
+  height: 0.625rem;
+  border-radius: 50%;
+  display: inline-block;
+
+  &--loading {
+    background-color: #b0bec5;
+    animation: pulse 1s ease-in-out infinite;
+  }
+
+  &--online {
+    background-color: #2e7d32;
+  }
+
+  &--offline {
+    background-color: #c62828;
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}

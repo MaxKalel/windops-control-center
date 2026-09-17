@@ -1,0 +1,34 @@
+<section class="alerts" [attr.aria-label]="title">
+  <h2>{{ title }}</h2>
+
+  @switch (status()) {
+    @case ('loading') {
+      <p>Carregando alertas...</p>
+    }
+    @case ('error') {
+      <p role="alert" class="alerts__error">{{ errorMessage() }}</p>
+    }
+    @case ('success') {
+      @if (visibleAlerts().length === 0) {
+        <p>Nenhum alerta.</p>
+      } @else {
+        <ul class="alerts__list">
+          @for (alert of visibleAlerts(); track alert.id) {
+            <li class="alert">
+              <span class="alert__badge alert__badge--{{ alert.severity.toLowerCase() }}">
+                {{ alert.severity }}
+              </span>
+              <div class="alert__body">
+                <p class="alert__message">{{ alert.message }}</p>
+                <p class="alert__meta">
+                  {{ alert.assetId }} · {{ alert.type }} ·
+                  <time [attr.datetime]="alert.timestamp">{{ alert.timestamp | date: 'MMM d, HH:mm' }}</time>
+                </p>
+              </div>
+            </li>
+          }
+        </ul>
+      }
+    }
+  }
+</section>

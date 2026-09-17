@@ -1,0 +1,86 @@
+<section class="asset-detail" aria-label="Detalhe do ativo">
+  @switch (status()) {
+    @case ('loading') {
+      <p>Carregando detalhe...</p>
+    }
+    @case ('error') {
+      <p role="alert" class="asset-detail__error">{{ errorMessage() }}</p>
+    }
+    @case ('success') {
+      @if (asset(); as asset) {
+        <header class="asset-detail__header">
+          <a routerLink="/assets" class="asset-detail__back">← Voltar para ativos</a>
+          <h2 class="asset-detail__title">
+            {{ asset.id }} — {{ asset.name }}
+          </h2>
+          <span class="asset-detail__status asset-detail__status--{{ asset.status.toLowerCase() }}">
+            {{ asset.status }}
+          </span>
+          <p class="asset-detail__meta">
+            {{ asset.type }} · {{ asset.ratedPowerMw }} MW · {{ asset.location }}
+          </p>
+        </header>
+
+        @if (summary(); as summary) {
+          <dl class="summary-cards">
+            <div class="summary-card">
+              <dt>Potência média</dt>
+              <dd>{{ summary.averagePowerMw ?? '—' }} MW</dd>
+            </div>
+            <div class="summary-card">
+              <dt>Temperatura máx</dt>
+              <dd>{{ summary.maxTemperatureC ?? '—' }} °C</dd>
+            </div>
+            <div class="summary-card">
+              <dt>Warnings</dt>
+              <dd>{{ summary.warningAlerts }}</dd>
+            </div>
+            <div class="summary-card">
+              <dt>Critical</dt>
+              <dd>{{ summary.criticalAlerts }}</dd>
+            </div>
+          </dl>
+        }
+
+        <div class="asset-detail__sections">
+          <section class="telemetry" aria-label="Telemetria recente">
+            <h3>Telemetria recente</h3>
+            @if (telemetry().length === 0) {
+              <p>Nenhuma leitura registrada ainda.</p>
+            } @else {
+              <ul class="telemetry__list">
+                @for (reading of telemetry(); track reading.timestamp + reading.powerMw) {
+                  <li class="telemetry__item">
+                    <time class="telemetry__time" [attr.datetime]="reading.timestamp">{{
+                      reading.timestamp | date: 'short'
+                    }}</time>
+                    <span>{{ reading.powerMw }} MW</span>
+                    <span>{{ reading.temperatureC }} °C</span>
+                    @if (reading.windSpeedMs !== undefined) {
+                      <span>{{ reading.windSpeedMs }} m/s</span>
+                    }
+                  </li>
+                }
+              </ul>
+            }
+          </section>
+
+          <section class="new-reading" aria-label="Nova leitura">
+            <h3>Nova leitura</h3>
+            <app-telemetry-form
+              [assetId]="assetId"
+              (saved)="onSaved()"
+            />
+          </section>
+        </div>
+
+        <section class="asset-detail__alerts">
+          <app-alert-list
+            [assetId]="asset.id"
+            title="Alertas do ativo"
+          />
+        </section>
+      }
+    }
+  }
+</section>
